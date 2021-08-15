@@ -3,10 +3,10 @@ import { Handler, Request, Response } from '@backend/model/http';
 
 const connector = getDatabaseConnector();
 
-export default function (...args: any[]) {
-  return (fn: Handler) => async (req: Request, res: Response) => {
+export default () => {
+  return (fn: Handler) => async (req: Request, res: Response): Promise<void> => {
     req.db = connector();
     await fn(req, res);
     await req.db.destroy();
   };
-}
+};
