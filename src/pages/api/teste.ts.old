@@ -1,0 +1,15 @@
+import { NextApiRequest, NextApiResponse } from 'next';
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void> {
+  const database = databaseFactory();
+  const databaseClient = await database.getNewConnectedClient();
+
+  const testQuery = await databaseClient.query(`
+    SELECT *
+    FROM information_schema.tables
+    WHERE table_name = 'test_table';
+  `);
+
+  res.status(200).json({ query: testQuery });
+  await databaseClient.release();
+}
