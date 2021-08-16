@@ -9,7 +9,8 @@ export default (methods: RequestMethods) => {
       req.db = connector();
       await fn(req, res);
       await req.db.destroy();
+    } else {
+      await fn(req, res);
     }
-    await fn(req, res);
   };
 };
