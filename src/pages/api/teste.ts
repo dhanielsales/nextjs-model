@@ -14,6 +14,7 @@ const handler: Handler = async (req, res) => {
       const data = await database.raw<Raw<Test>>('SELECT * FROM test_table_2');
       // const data = await database('test_table_2').select();
 
+      console.log('teste de log');
       return res.status(200).json(data.rows);
       // return res.status(200).json(data);
     } else {
