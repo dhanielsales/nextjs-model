@@ -15,6 +15,8 @@ const handler: Handler = async (request, response) => {
       // const data = await database('test_table_2').select();
 
       console.log('teste de log');
+      response.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate');
+
       return response.status(200).json(data.rows);
       // return response.status(200).json(data);
     } else {
