@@ -11,14 +11,14 @@ const handler: Handler = async (request, response) => {
   try {
     if (request.method === 'GET') {
       const database = request.db;
-      const data = await database.raw<Raw<Test>>('SELECT * FROM test_table');
-      // const data = await database('test_table').select();
+      // const data = await database.raw<Raw<Test>>('SELECT id, name as nome FROM test_table');
+      const data = await database('test_table').select();
 
       console.log('LOG: Com cache');
       response.setHeader('Cache-Control', 's-maxage=10, stale-while-revalidate');
 
-      return response.status(200).json(data.rows);
-      // return response.status(200).json(data);
+      // return response.status(200).json(data.rows);
+      return response.status(200).json(data);
     } else {
       return response.status(404).end();
     }
